@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS  `friends` (
                            `id` int NOT NULL AUTO_INCREMENT,
                            `user_from` int DEFAULT NULL,
                            `user_to` int DEFAULT NULL,
-                           `status` varchar(15) NOT NULL DEFAULT 'Wait' COMMENT 'Enum: Wait, Approve',
+                           `status` varchar(15) NOT NULL DEFAULT 'WAIT' COMMENT 'Enum: Wait, Approve',
                            PRIMARY KEY (`id`),
                            KEY `userFromId` (`user_from`),
                            KEY `userToId` (`user_to`),
