@@ -1,0 +1,37 @@
+version: "3"
+services:
+  otus_app:
+    container_name: otus
+    image: otus_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - otus_highload_otus_network
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_APPLICATION_JSON: '{
+            "spring.datasource.url": "jdbc:mysql://mysqldb:3306?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false"
+             }'
+    restart: on-failure
+
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:8
+    volumes:
+      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3306"
+    networks:
+      - otus_highload_otus_network
+    environment:
+      - MYSQL_DATABASE=rneretin_otus
+      - MYSQL_USER=otus
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+
+networks:
+  otus_highload_otus_network:

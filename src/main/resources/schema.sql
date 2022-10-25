@@ -27,41 +27,23 @@ USE `rneretin_otus`;
 -- Table structure for table `users`
 --
 
---
--- Table structure for table `friends`
---
-
-CREATE TABLE IF NOT EXISTS  `friends` (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `user_from` int DEFAULT NULL,
-                           `user_to` int DEFAULT NULL,
-                           `status` varchar(15) NOT NULL DEFAULT 'WAIT' COMMENT 'Enum: Wait, Approve',
-                           PRIMARY KEY (`id`),
-                           KEY `userFromId` (`user_from`),
-                           KEY `userToId` (`user_to`),
-                           CONSTRAINT `userFromId` FOREIGN KEY (`user_from`) REFERENCES `users` (`id`),
-                           CONSTRAINT `userToId` FOREIGN KEY (`user_to`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
 CREATE TABLE IF NOT EXISTS `users` (
-  `first_name` varchar(25) NOT NULL,
-  `last_name` varchar(25) NOT NULL,
-  `age` smallint NOT NULL,
-  `interest` text NOT NULL,
-  `city` varchar(25) NOT NULL,
-  `role` varchar(25) NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `enabled` boolean default true null,
-  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`),
-  UNIQUE(`username`)
+                                       `first_name` varchar(25) NOT NULL,
+                                       `last_name` varchar(25) NOT NULL,
+                                       `age` smallint NOT NULL,
+                                       `interest` text NOT NULL,
+                                       `city` varchar(25) NOT NULL,
+                                       `role` varchar(25) NULL,
+                                       `username` varchar(50) NOT NULL,
+                                       `password` varchar(255) NOT NULL,
+                                       `enabled` boolean default true null,
+                                       `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                       `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                       `id` int NOT NULL AUTO_INCREMENT,
+                                       PRIMARY KEY (`id`),
+                                       UNIQUE(`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET character_set_client ='utf8' */;
 
 --
 -- Dumping data for table `users`
@@ -81,4 +63,20 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-02  1:47:30
+
+--
+-- Table structure for table `friends`
+--
+
+CREATE TABLE IF NOT EXISTS  `friends` (
+                                          `id` int NOT NULL AUTO_INCREMENT,
+                                          `user_from` int DEFAULT NULL,
+                                          `user_to` int DEFAULT NULL,
+                                          `status` varchar(15) NOT NULL DEFAULT 'WAIT' COMMENT 'Enum: Wait, Approve',
+                                          PRIMARY KEY (`id`),
+                                          KEY `userFromId` (`user_from`),
+                                          KEY `userToId` (`user_to`),
+                                          CONSTRAINT `userFromId` FOREIGN KEY (`user_from`) REFERENCES `users` (`id`),
+                                          CONSTRAINT `userToId` FOREIGN KEY (`user_to`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client ='utf8' */;
