@@ -26,7 +26,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/register", "/login").permitAll()
+                .antMatchers("/register", "/login", "/users").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()

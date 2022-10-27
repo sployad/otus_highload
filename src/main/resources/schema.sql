@@ -28,21 +28,22 @@ USE `rneretin_otus`;
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-                                       `first_name` varchar(25) NOT NULL,
-                                       `last_name` varchar(25) NOT NULL,
-                                       `age` smallint NOT NULL,
-                                       `interest` text NOT NULL,
-                                       `city` varchar(25) NOT NULL,
-                                       `role` varchar(25) NULL,
-                                       `username` varchar(50) NOT NULL,
-                                       `password` varchar(255) NOT NULL,
-                                       `enabled` boolean default true null,
-                                       `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                       `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                                       `id` int NOT NULL AUTO_INCREMENT,
-                                       PRIMARY KEY (`id`),
-                                       UNIQUE(`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                      `first_name` varchar(25) NOT NULL,
+                                      `last_name` varchar(25) NOT NULL,
+                                      `age` smallint NOT NULL,
+                                      `interest` text NOT NULL,
+                                      `city` varchar(50) NOT NULL,
+                                      `role` varchar(25) DEFAULT NULL,
+                                      `username` varchar(50) NOT NULL,
+                                      `password` varchar(255) NOT NULL,
+                                      `enabled` tinyint(1) DEFAULT '1',
+                                      `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                      `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                      `id` int NOT NULL AUTO_INCREMENT,
+                                      PRIMARY KEY (`id`),
+                                      UNIQUE KEY `username` (`username`),
+                                      KEY `FullName__index` (`first_name`,`last_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1004814 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client ='utf8' */;
 
 --

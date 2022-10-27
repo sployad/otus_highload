@@ -33,23 +33,31 @@ public class AuthServiceImpl implements AuthService {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedDataForRegister(userDto, preparedStatement);
             preparedStatement.executeUpdate();
-
+            preparedStatement.close();
+            connection.close();
             return new UserRegResponseDto(getUserId(userDto.getUsername()));
         } catch (SQLException e) {
-            if (e.getSQLState().equals("23000")) {
+            System.out.println(e.getMessage());
+            if (e.getSQLState() != null && e.getSQLState().equals("23000")) {
                 throw new BadRequestException();
             }
+            e.printStackTrace();
         }
         return null;
     }
 
     private Long getUserId(String username) throws SQLException {
         String sql = "select u.id from rneretin_otus.users u where username = ?";
-        PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(sql);
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, username);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        return resultSet.getLong("id");
+        Long result = resultSet.getLong("id");
+        connection.close();
+        preparedStatement.close();
+        resultSet.close();
+        return result;
     }
 
     private void preparedDataForRegister(UserRegRequestDto userDto, PreparedStatement preparedStatement) throws SQLException {
